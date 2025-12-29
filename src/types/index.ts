@@ -16,5 +16,8 @@ export interface TaskContextType {
   reorderTasks: (startIndex: number, endIndex: number) => void;
   filter: FilterType;
   setFilter: (filter: FilterType) => void;
+  theme: Theme;
   toggleTheme: () => void;
 }
+
+export type Theme = 'light' | 'dark';

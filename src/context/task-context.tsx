@@ -1,12 +1,13 @@
-import React, { createContext, useContext, useCallback, useMemo } from 'react';
-import type { FilterType, Task, TaskContextType } from '../types';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import React, { createContext, useContext, useCallback, useMemo } from 'react'
+import type { FilterType, Task, TaskContextType, Theme } from '../types'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined)
 
 export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', [])
   const [filter, setFilter] = useLocalStorage<FilterType>('filter', 'all')
+  const [theme, setTheme] = useLocalStorage<Theme>('theme', 'light')
 
   const addTask = useCallback((text: string) => {
     const newTask: Task = {
@@ -39,6 +40,10 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
     })
   }, [setTasks])
 
+  const toggleTheme = useCallback(() => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+  }, [setTheme])
+
   const value = useMemo(
     () => ({
       tasks,
@@ -48,8 +53,10 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
       reorderTasks,
       filter,
       setFilter,
+      theme,
+      toggleTheme,
     }),
-    [tasks, addTask, toggleTask, deleteTask, reorderTasks, filter, setFilter]
+    [tasks, addTask, toggleTask, deleteTask, reorderTasks, filter, setFilter, theme, toggleTheme]
   )
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>
