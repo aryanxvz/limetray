@@ -64,10 +64,6 @@ body {
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease;
-}
-
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -79,12 +75,6 @@ body {
   }
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -94,4 +84,26 @@ body {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease;
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
