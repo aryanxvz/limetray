@@ -31,7 +31,7 @@ export const TaskFilter: React.FC = React.memo(() => {
   }
 
   return (
-    <div className="flex flex-wrap gap-3 mb-6">
+    <div className="flex flex-wrap gap-3 mb-4 sm:mb-6">
       <FilterButton value="all" label="All" />
       <FilterButton value="pending" label="Pending" />
       <FilterButton value="completed" label="Completed" />
