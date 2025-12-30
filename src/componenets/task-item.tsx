@@ -5,16 +5,16 @@ import type { Task } from '../types';
 import { useTaskContext } from '../context/task-context';
 
 interface TaskItemProps {
-  task: Task
-  index: number
+  task: Task;
 }
 
 export const TaskItem: React.FC<TaskItemProps> = React.memo(({ task }) => {
-  const { toggleTask, deleteTask } = useTaskContext()
+  const { toggleTask, deleteTask } = useTaskContext();
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ 
+    id: task.id 
+  })
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: task.id })
-
-  const sortableStyle = {
+  const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   }
@@ -28,28 +28,31 @@ export const TaskItem: React.FC<TaskItemProps> = React.memo(({ task }) => {
   }, [deleteTask, task.id])
 
   return (
-    <div ref={setNodeRef} style={sortableStyle}
-      {...attributes} {...listeners}
-      className={`flex items-center justify-between gap-4 px-4 py-3 rounded-lg border mb-3 transition-all duration-200
-        ${task.completed 
-          ? 'bg-slate-100/50 dark:bg-neutral-900/30 border-slate-200 dark:border-neutral-800' 
-          : 'bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800 hover:border-blue-500 dark:hover:border-blue-500'
+    <div ref={setNodeRef} style={style}
+      className={`flex items-center justify-between gap-4 px-4 py-3 rounded-lg border mb-3 transition-all duration-200 animate-slideIn
+        ${
+          task.completed
+            ? 'bg-slate-100/50 dark:bg-neutral-900/30 border-slate-200 dark:border-neutral-800'
+            : 'bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md'
         }
-        ${isDragging ? 'opacity-50 shadow-lg' : ''}
-      `}>
-      
+        ${isDragging ? 'opacity-50 shadow-2xl scale-105' : ''}
+      `}
+    >
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <input type="checkbox"
           checked={task.completed} onChange={handleToggle}
-          className="w-5 h-5 cursor-pointer accent-blue-500 dark:accent-blue-600"/>
-        <span className={`text-base text-slate-900 dark:text-neutral-100 transition-all duration-200
-          ${task.completed ? 'line-through opacity-50' : ''}`}>
+          className="w-5 h-5 cursor-pointer accent-blue-500 dark:accent-blue-600 transition-transform hover:scale-110"
+        />
+        <span {...attributes} {...listeners}
+          className={`text-base text-slate-900 dark:text-neutral-100 transition-all duration-200 cursor-move select-none
+            ${task.completed ? 'line-through opacity-50' : ''}
+          `}>
           {task.text}
         </span>
       </div>
 
-      <button onClick={handleDelete}
-        className="p-2 text-slate-500 dark:text-neutral-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 rounded transition-all duration-200 active:scale-95">
+      <button onClick={handleDelete} type="button"
+        className="p-2 text-slate-500 dark:text-neutral-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 rounded transition-all duration-200 active:scale-95 shrink-0">
         ✕
       </button>
     </div>

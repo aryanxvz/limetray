@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -20,7 +20,11 @@ export const TaskList: React.FC = React.memo(() => {
   const { tasks, filter, reorderTasks } = useTaskContext()
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -37,28 +41,28 @@ export const TaskList: React.FC = React.memo(() => {
     }
   }, [tasks, filter])
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event
 
     if (!over || active.id === over.id) return
 
-    const oldIndex = filteredTasks.findIndex((task) => task.id === active.id)
-    const newIndex = filteredTasks.findIndex((task) => task.id === over.id)
+    const oldIndex = tasks.findIndex((task) => task.id === active.id)
+    const newIndex = tasks.findIndex((task) => task.id === over.id)
 
     if (oldIndex !== -1 && newIndex !== -1) {
       reorderTasks(oldIndex, newIndex)
     }
-  }
+  }, [tasks, reorderTasks])
 
   if (filteredTasks.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="text-center py-12 animate-fadeIn">
         <p className="text-lg text-slate-500 dark:text-neutral-400">
           {filter === 'completed'
-            ? 'No completed tasks yet'
+            ? '🎉 No completed tasks yet'
             : filter === 'pending'
-            ? 'No pending tasks'
-            : 'No tasks yet. Add one to get started!'}
+            ? '✨ No pending tasks'
+            : '📝 No tasks yet. Add one to get started!'}
         </p>
       </div>
     )
@@ -66,12 +70,10 @@ export const TaskList: React.FC = React.memo(() => {
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext
-        items={filteredTasks.map((task) => task.id)}
-        strategy={verticalListSortingStrategy}>
+      <SortableContext items={filteredTasks.map((task) => task.id)} strategy={verticalListSortingStrategy}>
         <div>
-          {filteredTasks.map((task, index) => (
-            <TaskItem key={task.id} task={task} index={index} />
+          {filteredTasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
           ))}
         </div>
       </SortableContext>
