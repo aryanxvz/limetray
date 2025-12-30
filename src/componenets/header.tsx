@@ -6,7 +6,7 @@ export const Header: React.FC = React.memo(() => {
   const { theme, toggleTheme } = useTaskContext()
 
   return (
-    <header className="mb-8 border-b border-slate-200 dark:border-neutral-800 py-3 px-3">
+    <header className="mb-4 sm:mb-8 border-b border-slate-200 dark:border-neutral-800 py-3 px-3">
 
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">

@@ -18,7 +18,7 @@ export const TaskFilter: React.FC = React.memo(() => {
     return (
       <button
         onClick={() => handleFilterChange(value)}
-        className={`px-5 py-2 font-medium rounded-lg border transition-all duration-200
+        className={`px-6 py-1.5 sm:py-2 font-medium rounded-lg border transition-all duration-200
           ${
             isActive
               ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'

@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTaskContext } from '../context/task-context';
+import { Plus } from 'lucide-react';
 
 export const TaskInput: React.FC = React.memo(() => {
   const [input, setInput] = useState('')
@@ -45,11 +46,11 @@ export const TaskInput: React.FC = React.memo(() => {
   )
 
   return (
-    <div className="mb-6 animate-slideDown">
-      <div className="flex flex-col sm:flex-row gap-3">
+    <div className="mb-4 sm:mb-6 animate-slideDown">
+      <div className="flex gap-2 sm:gap-3">
         <input type="text" placeholder="Add a new task..."
           value={input} onChange={handleInputChange} onKeyPress={handleKeyPress}
-          className={`flex-1 px-4 py-3 rounded-lg border transition-all duration-200 outline-none
+          className={`flex-1 px-3 sm:px-4 py-2 rounded-lg border transition-all duration-200 outline-none
             bg-slate-50 dark:bg-neutral-900 text-slate-900 dark:text-neutral-100
             ${
               error
@@ -60,8 +61,9 @@ export const TaskInput: React.FC = React.memo(() => {
         />
 
         <button type="button" onClick={() => handleSubmit()}
-          className="px-6 py-3 font-medium text-white rounded-lg bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-200 active:scale-95 shadow-lg hover:shadow-xl cursor-pointer">
-          Add Task
+          className="px-3 sm:px-6 py-3 font-medium text-white rounded-lg bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-200 active:scale-95 shadow-lg hover:shadow-xl cursor-pointer flex items-center justify-center">
+          <Plus className="w-5 h-5 sm:hidden" />
+          <span className="hidden sm:inline">Add Task</span>
         </button>
       </div>
 

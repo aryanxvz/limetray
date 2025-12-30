@@ -59,10 +59,10 @@ export const TaskList: React.FC = React.memo(() => {
       <div className="text-center py-12 animate-fadeIn">
         <p className="text-lg text-slate-500 dark:text-neutral-400">
           {filter === 'completed'
-            ? '🎉 No completed tasks yet'
+            ? 'No completed tasks yet'
             : filter === 'pending'
-            ? '✨ No pending tasks'
-            : '📝 No tasks yet. Add one to get started!'}
+            ? 'No pending tasks'
+            : 'No tasks yet. Add one to get started!'}
         </p>
       </div>
     )
