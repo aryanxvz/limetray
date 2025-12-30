@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# Limetray assignment - Task Manager App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A task management application built with React, TypeScript and modern web technologies.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Basic Features
+- ✅ Add tasks with validation
+- ✅ Mark tasks as completed
+- ✅ Delete tasks
+- ✅ Filter tasks (All, Completed, Pending)
+- ✅ Persistent storage using Local Storage
 
-## React Compiler
+### Advanced React Features
+- ✅ **Custom Hooks**: `useLocalStorage` for handling local storage operations
+- ✅ **Context API**: Centralized state management without prop drilling
+- ✅ **Performance Optimization**: 
+  - `React.memo` for component memoization
+  - `useCallback` for function memoization
+  - `useMemo` for computed values
+- ✅ **Form Validation**: Prevents empty tasks and requires minimum 3 characters
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Advanced CSS Features
+- ✅ **Dark/Light Mode**: Toggle between themes with smooth transitions
+- ✅ **Animations**: CSS transitions for adding/removing tasks
+- ✅ **Responsive Design**: Mobile-first approach with breakpoints
+- ✅ **Drag-and-Drop**: Reorder tasks using react-beautiful-dnd
 
-## Expanding the ESLint configuration
+## Technologies Used
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **dnd-kit** - Drag and drop functionality
+- **Tailwind CSS** - Styling
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/aryanxvz/limetray
+cd linetray
+```
+2. Install dependencies:
+```bash
+npm install
+```
+3. Run the development server:
+```bash
+npm run dev
+```
+4. Open your browser and navigate to `http://localhost:5173`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
+```
+src/
+├── components/
+│   ├── header.tsx
+│   ├── task-input.tsx
+│   ├── task-filter.tsx
+│   ├── task-list.tsx
+│   ├── task-item.tsx
+│   └── task-status.tsx
+├── context/
+│   └── task-context.tsx
+├── hooks/
+│   └── useLocalStorage.ts
+├── types/
+│   └── index.ts
+├── App.tsx
+├── App.css
+├── main.tsx
+└── index.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Key Functionalities
+1. **Add Task**: Enter task text (minimum 3 characters) and click "Add Task"
+2. **Complete Task**: Click the checkbox to toggle completion status
+3. **Delete Task**: Click the ✕ button to remove a task
+4. **Filter Tasks**: Use the filter buttons to view All, Pending, or Completed tasks
+5. **Reorder Tasks**: Drag and drop tasks to reorder them
+6. **Toggle Theme**: Click the theme button (🌙/☀️) to switch between dark and light modes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Responsive Design
+- Mobile-first approach
+- Flexible layouts with Flexbox
+- Touch-friendly UI elements
+- Breakpoint at 640px for mobile devices
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+
+## Build for Production
+```bash
+npm run build
 ```
+
+The build output will be in the `dist/` folder.
+
+
+## Made by
+Aryan Mane
+
+---
+Using React + TypeScript + Vite
