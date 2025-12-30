@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { GripVertical } from 'lucide-react';
 import type { Task } from '../types';
 import { useTaskContext } from '../context/task-context';
 
@@ -29,7 +30,7 @@ export const TaskItem: React.FC<TaskItemProps> = React.memo(({ task }) => {
 
   return (
     <div ref={setNodeRef} style={style}
-      className={`flex items-center justify-between gap-4 px-4 py-3 rounded-lg border mb-3 transition-all duration-200 animate-slideIn
+      className={`flex items-center justify-between gap-3 px-4 py-3 rounded-lg border mb-3 transition-all duration-200 animate-slideIn
         ${
           task.completed
             ? 'bg-slate-100/50 dark:bg-neutral-900/30 border-slate-200 dark:border-neutral-800'
@@ -38,13 +39,18 @@ export const TaskItem: React.FC<TaskItemProps> = React.memo(({ task }) => {
         ${isDragging ? 'opacity-50 shadow-2xl scale-105' : ''}
       `}
     >
+
+      <div {...attributes} {...listeners}
+        className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-neutral-600 hover:text-slate-600 dark:hover:text-neutral-400 transition-colors shrink-0">
+        <GripVertical size={20} />
+      </div>
+
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <input type="checkbox"
           checked={task.completed} onChange={handleToggle}
-          className="w-5 h-5 cursor-pointer accent-blue-500 dark:accent-blue-600 transition-transform hover:scale-110"
-        />
-        <span {...attributes} {...listeners}
-          className={`text-base text-slate-900 dark:text-neutral-100 transition-all duration-200 cursor-move select-none
+          className="w-5 h-5 cursor-pointer accent-blue-500 dark:accent-blue-600 transition-transform hover:scale-110"/>
+        <span
+          className={`text-base text-slate-900 dark:text-neutral-100 transition-all duration-200 select-none
             ${task.completed ? 'line-through opacity-50' : ''}
           `}>
           {task.text}
